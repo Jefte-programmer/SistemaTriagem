@@ -1,6 +1,6 @@
 public class Medico extends ProfissionalSaude {
-    public Medico(String nome, String cpf, int dataNascimento, String registroConselho){
-        super(nome, cpf, dataNascimento, registroConselho);  
+    public Medico(String nome, String cpf, int anoNascimento, String genero, String registroConselho) {
+        super(nome, cpf, anoNascimento, genero, registroConselho);
     }
 
     public void avaliarFicha(FichaTriagem ficha) {
@@ -22,9 +22,9 @@ public class Medico extends ProfissionalSaude {
         System.out.println("              DECISÃO MÉDICA FINAL          ");
         System.out.println("────────────────────────────────────────────");
 
-        if(risco == GrauRisco.VERMELHO || risco == GrauRisco.LARANJA) {
+        if (risco == GrauRisco.VERMELHO || risco == GrauRisco.LARANJA) {
             System.out.println("[!] STATUS: ATENDIMENTO CRÍTICO ");
-            System.out.println("LIGANDO PARA 199.... ");
+            System.out.println("LIGANDO PARA 192.... ");
             System.out.println("PACIENTE EM RISCO: " + risco);
             System.out.println("DESTINO:  ALA EMERGENCIAL (Transferência Imediata, via SAMU)");
             System.out.println("OBSERVAÇÃO:  Monitoramento contínuo obrigatório.");

@@ -1,9 +1,9 @@
-public abstract class ProfissionalSaude extends Pessoa{
+public abstract class ProfissionalSaude extends Pessoa {
 
     protected String registroConselho;
 
-    public ProfissionalSaude(String nome, String cpf, int dataNascimento, String registroConselho){
-        super(nome, cpf, dataNascimento);
+    public ProfissionalSaude(String nome, String cpf, int anoNascimento, String genero, String registroConselho) {
+        super(nome, cpf, anoNascimento, genero);
         this.registroConselho = registroConselho;
     }
 

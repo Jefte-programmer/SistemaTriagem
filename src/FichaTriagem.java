@@ -22,28 +22,28 @@ public class FichaTriagem {
     public GrauRisco processarTriagem() {
         int pontuacaoFinal = 0;
 
-        for(Sintoma sintoma : sintomas) {
+        for (Sintoma sintoma : sintomas) {
             pontuacaoFinal += sintoma.getPesoGravidade();
         }
 
-        pontuacaoFinal +=paciente.calcularAgravanteRisco();
+        pontuacaoFinal += paciente.calcularAgravanteRisco();
 
         if (pontuacaoFinal >= 10) {
             this.riscoReal = GrauRisco.VERMELHO;
         } else if (pontuacaoFinal >= 7 && pontuacaoFinal < 10) {
             this.riscoReal = GrauRisco.LARANJA;
-        } else if (pontuacaoFinal >= 5  && pontuacaoFinal < 7) {
+        } else if (pontuacaoFinal >= 5 && pontuacaoFinal < 7) {
             this.riscoReal = GrauRisco.AMARELO;
         } else if (pontuacaoFinal >= 3 && pontuacaoFinal < 5) {
             this.riscoReal = GrauRisco.VERDE;
         } else if (pontuacaoFinal >= 1 && pontuacaoFinal < 3) {
             this.riscoReal = GrauRisco.AZUL;
         }
-        
+
         return this.riscoReal;
     }
 
-    public void gerarRelatorio(){
+    public void gerarRelatorio() {
         System.out.println("\n\n");
         System.out.println("────────────────────────────────────────────");
         System.out.println("              FICHA TRIAGEM                 ");
@@ -51,6 +51,11 @@ public class FichaTriagem {
         System.out.println("DADOS DO PACIENTE");
         System.out.println("NOME: " + paciente.getNome());
         System.out.println("CPF: " + paciente.getCpf());
+        System.out.println("ANO NASCIMENTO: " + paciente.getAnoNascimento());
+        System.out.println("GENERO: " + paciente.getGenero());
+        System.out.println("BATIMENTOS POR MINUTO: " + paciente.getBatimentosPorMinuto());
+        System.out.println("PRESSAO ARTERIAL: " + paciente.getPressaoArterial());
+        System.out.println("TEMPERATURA: " + paciente.getTemperatura());
         System.out.println("QUANTIDADE DE SINTOMAS: " + sintomas.size());
         System.out.println("ÁREA: " + (this.riscoReal != null ? this.riscoReal : "ERRO NO SISTEMA"));
         System.out.println("SINTOMAS RELATADOS: ");
@@ -82,6 +87,5 @@ public class FichaTriagem {
     public List<Sintoma> getSintomas() {
         return sintomas;
     }
-    
-}
 
+}

@@ -1,21 +1,26 @@
-public class PacienteGestante extends Paciente{
-    
-    private int messesGestacao;
+public class PacienteGestante extends Paciente {
 
-    public PacienteGestante(String nome, String cpf, int dataNascimento, int messesGestacao){
-        super(nome, cpf, dataNascimento);
-        this.messesGestacao = messesGestacao;
+    private int mesesgestacao;
+
+    public PacienteGestante(String nome, String cpf, int anoNascimento, String genero, int batimentosPorMinuto,
+            String pressaoArterial, double temperatura, int mesesgestacao) {
+        super(nome, cpf, anoNascimento, genero, batimentosPorMinuto, pressaoArterial, temperatura);
+        this.mesesgestacao = mesesgestacao;
     }
 
     @Override
-    public int calcularAgravanteRisco(){
+    public int calcularAgravanteRisco() {
 
-        if(messesGestacao >= 7 && messesGestacao <= 9){
+        if (mesesgestacao >= 7 && mesesgestacao <= 9) {
             return 2;
-        } else if(messesGestacao <= 6 && messesGestacao >= 4){
+        } else if (mesesgestacao <= 6 && mesesgestacao >= 4) {
             return 1;
-        }else{
+        } else {
             return 0;
         }
+    }
+
+    public int getMesesGestacao() {
+        return mesesgestacao;
     }
 }

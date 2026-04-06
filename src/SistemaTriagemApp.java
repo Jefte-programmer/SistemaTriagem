@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 public class SistemaTriagemApp {
 
     Scanner scanner = new Scanner(System.in);
@@ -47,7 +48,7 @@ public class SistemaTriagemApp {
                         System.out.println("ERRO: Cadastre um Paciente primeiro (Opção 3)!");
                     } else {
                         realizarNovaTriagem(enfermeiroLogado, pacienteAtual);
-                        this.pacienteAtual = null; 
+                        this.pacienteAtual = null;
                     }
                     break;
                 case 5:
@@ -77,7 +78,7 @@ public class SistemaTriagemApp {
         System.out.println(" [0] - Sair");
         System.out.println("============================================");
     }
-    
+
     public Enfermeiro cadastrarEnfermeiro() {
         System.out.println("\n");
         System.out.println("────────────────────────────────────────────");
@@ -87,17 +88,20 @@ public class SistemaTriagemApp {
         String nome = scanner.nextLine();
         System.out.print("CPF: ");
         String cpf = scanner.nextLine();
-        System.out.print("Data Nascimento: ");
-        int data = scanner.nextInt();
+        System.out.print("Ano de Nascimento: ");
+        int ano = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Gênero: ");
+        String genero = scanner.nextLine();
         scanner.nextLine();
         System.out.print("COREM: ");
         String corem = scanner.nextLine();
         System.out.println("────────────────────────────────────────────");
 
-        return new Enfermeiro(nome, cpf, data, corem);
+        return new Enfermeiro(nome, cpf, ano, genero, corem);
     }
 
-    public Medico cadastrarMedico(){
+    public Medico cadastrarMedico() {
         System.out.println("\n");
         System.out.println("────────────────────────────────────────────");
         System.out.println("              CADASTRAR Médico              ");
@@ -106,46 +110,63 @@ public class SistemaTriagemApp {
         String nome = scanner.nextLine();
         System.out.print("CPF: ");
         String cpf = scanner.nextLine();
-        System.out.print("Data Nascimento: ");
-        int data = scanner.nextInt();
+        System.out.print("Ano de Nascimento: ");
+        int ano = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Gênero: ");
+        String genero = scanner.nextLine();
         scanner.nextLine();
         System.out.print("CRM: ");
         String crm = scanner.nextLine();
         System.out.println("────────────────────────────────────────────");
 
-        return new Medico(nome, cpf, data, crm);
+        return new Medico(nome, cpf, ano, genero, crm);
     }
 
     public Paciente cadastrarPaciente() {
-    System.out.println("\n");
-    System.out.println("────────────────────────────────────────────");
-    System.out.println("             CADASTRO DE PACIENTE           ");
-    System.out.println("────────────────────────────────────────────");
-    System.out.print("Nome: ");
-    String nome = scanner.nextLine();
-    System.out.print("CPF: ");
-    String cpf = scanner.nextLine();
-    System.out.print("Ano de Nascimento: ");
-    int ano = scanner.nextInt();
-    scanner.nextLine();
-    System.out.print("A paciente é gestante? (SIM/NAO): ");
-    String resposta = scanner.nextLine();
-
-    Paciente novoPaciente = null;
-
-    if (resposta.equalsIgnoreCase("SIM")) {
-        System.out.print("Meses de gestação: ");
-        int meses = scanner.nextInt();
+        Paciente novoPaciente = null;
+        System.out.println("\n");
+        System.out.println("────────────────────────────────────────────");
+        System.out.println("             CADASTRO DE PACIENTE           ");
+        System.out.println("────────────────────────────────────────────");
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Ano de Nascimento: ");
+        int ano = scanner.nextInt();
         scanner.nextLine();
-        novoPaciente = new PacienteGestante(nome, cpf, ano, meses);
-    } else {
-        novoPaciente = new PacienteAdulto(nome, cpf, ano);
+        System.out.print("Gênero: ");
+        String genero = scanner.nextLine();
+        System.out.print("BPM: ");
+        int batimentosPorMinuto = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Pressão arterial: ");
+        String pressaoArterial = scanner.nextLine();
+        System.out.print("Temperatura (em °C): ");
+        double temperatura = scanner.nextDouble();
+        scanner.nextLine();
+        if (genero.equalsIgnoreCase("feminino")) {
+            System.out.print("A paciente é gestante? (SIM/NAO): ");
+            String resposta = scanner.nextLine();
+            if (resposta.equalsIgnoreCase("SIM")) {
+                System.out.print("Meses de gestação: ");
+                int mesesGestacao = scanner.nextInt();
+                novoPaciente = new PacienteGestante(nome, cpf, ano, genero, batimentosPorMinuto, pressaoArterial,
+                        temperatura, mesesGestacao);
+            } else {
+                novoPaciente = new PacienteAdulto(nome, cpf, ano, genero, batimentosPorMinuto, pressaoArterial,
+                        temperatura);
+            }
+        } else {
+            novoPaciente = new PacienteAdulto(nome, cpf, ano, genero, batimentosPorMinuto, pressaoArterial,
+                    temperatura);
+        }
+
+        System.out.println("────────────────────────────────────────────");
+
+        return novoPaciente;
     }
-
-    System.out.println("────────────────────────────────────────────");
-
-    return novoPaciente;
-}
 
     public void realizarNovaTriagem(Enfermeiro enfermeiro, Paciente paciente) {
         System.out.println("\n");
@@ -178,27 +199,27 @@ public class SistemaTriagemApp {
             System.out.print("Deseja adicionar outro sintoma? (SIM/NAO): ");
             continuar = scanner.nextLine();
         }
-        
+
         ficha.processarTriagem();
 
         ficha.gerarRelatorio();
         System.out.println("\n");
-        
 
         this.filaAtendimento.add(ficha);
-        
+
         System.out.println("Triagem concluída! Paciente enviado para a fila.");
 
     }
+
     public void realizarAtendimentoMedico() {
         if (filaAtendimento.isEmpty()) {
             System.out.println("Fila vazia!");
             return;
+        } else {
+            FichaTriagem ficha = filaAtendimento.remove(0);
+            this.medicoAtual.avaliarFicha(ficha);
+            this.medicoAtual.encaminharPaciente(ficha);
         }
-
-        FichaTriagem ficha = filaAtendimento.remove(0);
-        this.medicoAtual.avaliarFicha(ficha);
-        this.medicoAtual.encaminharPaciente(ficha);
     }
-    
+
 }
